@@ -14,11 +14,12 @@ module.exports = function (app, config) {
   var db = mongoose.connection;
   db.on('error', function () {
     throw new Error('unable to connect to database at ' + config.db);
-  //});
-  //mongoose.set('debug', true);
-	//mongoose.connection.once('open', function callback() {
-	//	logger.log("Mongoose connected to the database");
-	//});
+  });
+
+  mongoose.set('debug', true);
+  mongoose.connection.once('open', function callback() {
+		logger.log("Mongoose connected to the database");
+	});
 
   app.use (morgan('dev'));
 
@@ -52,6 +53,4 @@ var routes = require ('./routes')(app);
   
     console.log("Starting application");
   
-  });
-  
-}
+  };
