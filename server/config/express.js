@@ -52,6 +52,6 @@ var routes = require ('./routes')(app);
   
     console.log("Starting application");
   
-  };
+  });
   
-  
+}
