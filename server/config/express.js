@@ -9,7 +9,7 @@ var glob = require ('glob');
 module.exports = function (app, config) {
 
   logger.log("Loading Mongoose functionality");
-  mongoose.Promise = require('bluebird’);,
+  mongoose.Promise = require('bluebird');
   mongoose.connect(config.db, {useMongoClient: true});
   var db = mongoose.connection;
   db.on('error', function () {
