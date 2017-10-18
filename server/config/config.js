@@ -6,14 +6,14 @@ var config = {
 development: {    
             root: rootPath,    
             app: {      name: 'ToDo'      },    
-            port: 5000
- //           db: 'mongodb://127.0.0.1/todo-dev',  
+            port: 5000,
+            db: 'mongodb://127.0.0.1/todo-dev',  
  },  
  production: {    
               root: rootPath,    
               app: {      name: ' ToDo'    },    
-               port: 80,  }
-//           db: 'mongodb://127.0.0.1/todo',
+              port: 80, },
+              db: 'mongodb://127.0.0.1/todo',
   };
   
 module.exports = config[env];

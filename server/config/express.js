@@ -1,25 +1,24 @@
 var express = require('express');
 var morgan = require ('morgan');
 var logger = require('./logger');
-//var bodyParser = require ('body-parser');
-//var mongoose = require ('mongoose');
-//var bluebird = required ('bluebird');
-//var glob = required ('glob');
+var bodyParser = require ('body-parser');
+var mongoose = require ('mongoose');
+var bluebird = require ('bluebird');
+var glob = require ('glob');
 
 module.exports = function (app, config) {
 
-  //logger.log("Loading Mongoose functionality");
-  //mongoose.Promise = require('bluebird’);
-  //mongoose.connect(config.db, {useMongoClient: true});
-  //var db = mongoose.connection;
-  //db.on('error', function () {
-  //  throw new Error('unable to connect to database at ' + config.db);
+  logger.log("Loading Mongoose functionality");
+  mongoose.Promise = require('bluebird’);,
+  mongoose.connect(config.db, {useMongoClient: true});
+  var db = mongoose.connection;
+  db.on('error', function () {
+    throw new Error('unable to connect to database at ' + config.db);
   //});
   //mongoose.set('debug', true);
 	//mongoose.connection.once('open', function callback() {
 	//	logger.log("Mongoose connected to the database");
 	//});
-
 
   app.use (morgan('dev'));
 
@@ -27,6 +26,15 @@ module.exports = function (app, config) {
     console.log('Request from ' + req.connection.remoteAddress);
     next();
   });  
+
+var routes = require ('./routes')(app);
+
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({
+      extended: true
+    }));
+  
+
   app.use(express.static(config.root + '/public'));
   
     app.use(function (req, res) {

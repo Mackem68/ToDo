@@ -34,8 +34,3 @@ var logger = new (winston.Logger)({
           };
           exports.log = log;
       
-
-
-logger.level = 'debug';
-logger.info('Hello world');
-logger.debug('Debugging info');
