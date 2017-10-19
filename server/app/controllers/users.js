@@ -1,15 +1,14 @@
-//var express = require('express'),
-//    router = express.Router(),
-//    logger = require ('../../config/logger'),
-//    mongoose = require ('mongoose'),
-//    User = mongoose.model('User'),
-//    passportService = require ('../../config/passport'),
-//    passport = require('passport');
+var express = require('express'),
+    router = express.Router(),
+    logger = require ('../../config/logger'),
+    mongoose = require ('mongoose'),
+    User = mongoose.model('User');
 
-//    var requireAuth = passport.authenticate('jwt',  { session: false}),
-//        requireLogin = passport.authenticate('local', { session: false});
+var UserSchema= newSchema({
+    firstName: {type: String, required: true},
+    lastName: {type: String, required: true}
+})
 
-
-//module.exports = function (app, config){
-//    app.use('/api', router);
-//}
+module.exports = function (app, config){
+    app.use('/api', router);
+}

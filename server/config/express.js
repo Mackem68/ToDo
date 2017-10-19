@@ -41,16 +41,12 @@ module.exports = function (app, config) {
     controllers.forEach(function (controller) {
       require(controller)(app,config);
     });
-    
+
   app.use(function (req, res, next) {
     logger.log('Request from ' + req.connection.remoteAddress);
     next();
   });  
 
-
-
-
-  
   app.use(express.static(config.root + '/public'));
   
     app.use(function (req, res) {
