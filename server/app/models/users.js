@@ -1,18 +1,21 @@
 var Mongoose = require ('mongoose');
-'use strict'
- 
-var express = require('express'),
-  router = express.Router(),
-  logger = require('../../config/logger');
-
-mongoose=required('mongoose'),
+var Schema = Mongoose.Schema;
 
 
-module.exports = function (app, config) {
-	app.use('/api', router);
 
-	router.route('/users').get(function(req, res, next){
-		logger.log('Get all users', 'verbose');
 
-	});
-};
+		var UserSchema = new Schema({
+			firstName:{type: String, required: true},
+			lastName: { type: String, required: true},
+			status: {type: Boolean, default: true},
+			email: {type: String, required: true, unique: true},
+			password: {type: String, required: true},
+			dateRegistered: { type: Date, default: Date.now},
+			
+		});
+
+
+
+
+module.exports=
+Mongoose.model('User', UserSchema);

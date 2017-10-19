@@ -1,6 +1,12 @@
-var Mongoose = require ('mongoose');
-mongoose = require('mongoose')
-User = mongoose.model('User')
+var express= require ('express'),
+    router= express.Router(),
+    logger = require('../../config/logger'),
+    mongoose = require('mongoose'),
+    User = mongoose.model('User');
+
+
+module.exports =function (app, config){
+    app.use ('/api', router);
 
 router.post('/users', function (req, res, next) {
       logger.log('Create User', 'verbose');
@@ -13,7 +19,7 @@ router.post('/users', function (req, res, next) {
          return next(err);
       });
     })
-    router.get('/users’, function (req, res, next){
+    router.get('/users', function (req, res, next){
         logger.log('Get User', 'verbose');
         var query = User.find()
           .sort(req.query.order)
@@ -55,12 +61,12 @@ router.post('/users', function (req, res, next) {
             }); 
             router.delete('/users/:userId', function(req, res, next){
                     logger.log('Delete user ' + req.params.userId, 'verbose');
-                    User.remove({ _id: req.params.userId })
+                    User.remove({ _id: req.params.userId })
                         .then(user => {
-                            res.status(200).json({msg: “User Deleted"});
+                            res.status(200).json({msg: "User Deleted"});
                         })
                         .catch(error => {
                             return next(error);
                         });
                 });
-            })
+            }
