@@ -13,7 +13,7 @@ router.post('/users', function (req, res, next) {
          return next(err);
       });
     })
-    router.get('/users’, function (req, res, next) {
+    router.get('/users’, function (req, res, next){
         logger.log('Get User', 'verbose');
         var query = User.find()
           .sort(req.query.order)
