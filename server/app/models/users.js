@@ -1,4 +1,6 @@
+var Mongoose = require ('mongoose');
 'use strict'
+ 
 var express = require('express'),
   router = express.Router(),
   logger = require('../../config/logger');
