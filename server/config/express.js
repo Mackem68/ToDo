@@ -5,10 +5,11 @@ var bodyParser = require ('body-parser');
 var mongoose = require ('mongoose');
 var bluebird = require ('bluebird');
 var glob = require ('glob');
+var cors = required('cors');
 
 module.exports = function (app, config) {
 
- // app.use(cors());
+  app.use(cors({origin: 'http://localhost:9000'}));
 
   logger.log("Loading Mongoose functionality");
   mongoose.Promise = require('bluebird');

@@ -37,7 +37,7 @@ router.post('/users', function (req, res, next) {
       });
       router.get('/users/:userId', function(req, res, next){
                 logger.log('Get user ' + req.params.userId, 'verbose');
-                User.findById(req.params.userId)
+                User.findById(req.params.userId)
                     .then(user => {
                         if(user){
                             res.status(200).json(user);
@@ -51,7 +51,7 @@ router.post('/users', function (req, res, next) {
             }); 
         router.put('/users/:userId', function(req, res, next){
                 logger.log('Update user ' + req.params.userId, 'verbose');
-                User.findOneAndUpdate({_id: req.params.userId}, 		req.body, {new:true, multi:false})
+                User.findOneAndUpdate({_id: req.params.userId}, 		req.body, {new:true, multi:false})
                     .then(user => {
                         res.status(200).json(user);
                     })
