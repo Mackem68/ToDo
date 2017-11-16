@@ -20,8 +20,11 @@ export class ToDos {
             
     async save(todo){
     if(todo){
-    let response = await this.data.post(todo, this.TODOS_SERVICE + "/" + todo._id);
-    return response;
+    	let serverResponse = await this.data.post(todo, this.TODOS_SERVICE + "/" 					+ todo._id);
+		if(! serverResponse.error){
+			this.todosArray.push(serverResponse);
+		}
+ return response;
 };
 }
 }
