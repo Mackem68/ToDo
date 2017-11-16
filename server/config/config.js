@@ -5,9 +5,10 @@ env = process.env.NODE_ENV || 'development';
 var config = {  
 development: {    
             root: rootPath,    
-            app: {      name: 'ToDo'      },    
+            app: {      name: 'Chirps'      },    
             port: 5000,
-            db: 'mongodb://127.0.0.1/todo-dev',  
+            db: 'mongodb://127.0.0.1/chirps-dev',
+            secret:"cayennedlikedhistreats"  
  },  
  production: {    
               root: rootPath,    
