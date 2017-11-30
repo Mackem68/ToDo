@@ -5,7 +5,7 @@ var bodyParser = require ('body-parser');
 var mongoose = require ('mongoose');
 var bluebird = require ('bluebird');
 var glob = require ('glob');
-var cors = required('cors');
+var cors = require ('cors');
 
 module.exports = function (app, config) {
 
@@ -71,5 +71,5 @@ module.exports = function (app, config) {
   logger.log("Starting application");
   
 
-  };
-}
+  }
+};
