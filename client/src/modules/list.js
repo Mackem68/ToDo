@@ -16,7 +16,10 @@ export class List {
       this.showCompleted=false;
       this.priorities = ['Low', 'Medium', 'High', 'Critical'];
       }
-  
+      async activate(){
+        await this.todos.getUserTodos(this.user._id);
+      }
+    
   createTodo(){	
 		this.todoObj = {
 			todo: "",
@@ -40,7 +43,12 @@ async saveTodo(){
     if(response.error){
       alert("There was an error creating the ToDo");
     } else {
-      //Could provide feeback									
+      var todoId = response._id;
+                      if(this.filesToUpload && this.filesToUpload.length){
+                          await this.todos.uploadFile(this.filesToUpload, this.user._id, todoId);
+                          this.filesToUpload = [];
+                      }
+                      
     }
     this.showList = true;
   }
@@ -70,5 +78,36 @@ completeTodo(todo){
   logout(){
     sessionStorage.removeItem('user');
      this.auth.logout();
-  }   
+  } 
+  changeFiles(){
+        this.filesToUpload = new Array(); 
+        this.filesToUpload.push(this.files[0]);
+    }
+    removeFile(index){
+        this.filesToUpload.splice(index,1);
+    }
+    async uploadFile(files, userId, todoId){
+              let formData = new FormData();
+              files.forEach((item, index) => {
+        formData.append("file" + index, item);
+              });
+          
+        let response = await this.data.uploadFiles(formData, this.TODO_SERVICE + 		"/upload/" + userId + "/" + todoId);
+        return response;
+      }
+      uploadFiles(files, url){
+            return this.httpClient
+            .fetch(url, {
+                method: 'post',
+                body: files
+            })
+            .then(response => response.json())
+            .then(object => {
+                return object;
+            })
+            .catch(error => {
+                return error;
+            });
+        }
+        
 }
