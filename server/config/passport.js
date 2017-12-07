@@ -5,6 +5,7 @@ config = require('./config'),
 jwtStrategy = require('passport-jwt').Strategy,
 extractJwt = require('passport-jwt').ExtractJwt,
 localStrategy = require('passport-local');
+
 var localOptions = { usernameField: 'email' };
 
 var localLogin = new localStrategy(localOptions, function(email, password, next){
@@ -26,6 +27,7 @@ var localLogin = new localStrategy(localOptions, function(email, password, next)
 	   })
 	.catch(function(err){return next(err);});
   });
+
   generateToken = function(user){
     return jwt.sign(user, config.secret, {
       expiresIn: 10000
@@ -44,9 +46,29 @@ setUserInfo = function(req){
 
   login = function(req, res, next) {
     var userInfo = setUserInfo(req.user);
-    res.status(200).json({ 
-      token: generateToken(userInfo), 
-      user: req.user  });
+    res.status(200).json({ token: generateToken(userInfo), user: req.user  });
   };
 
-passport.use(localLogin);
+  passport.use(localLogin);
+
+   var jwtOptions = {
+    jwtFromRequest: extractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey: config.secret
+  };
+  
+  var jwtLogin = new jwtStrategy(jwtOptions, function(payload, next){
+    User.findById(payload._id).exec()
+    .then(function(user){
+      if (user){
+        return next(null, user);
+      } else {
+        return next(null, false);
+      }
+    })
+    .catch(function(err){ return next(err);});
+  });
+  
+  passport.use(jwtLogin); 
+  passport.use(localLogin);
+  
+  

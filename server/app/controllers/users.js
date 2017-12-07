@@ -49,7 +49,7 @@ router.route('/users/userId').get(requireAuth,function(req, res, next){
                 });
         }); 
     
-router.route('/users').post(requireAuth,function(req, res, next){
+router.route('/users').post(function(req, res, next){
     logger.log('Create user', 'verbose');
 console.log(req.body)   
     var user = new User(req.body);

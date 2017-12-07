@@ -28,7 +28,7 @@ Todo.find({user: req.params.userId})
             });
 });
 
-router.route('/todos').get(requireAuth,function(req, res, next){
+router.route('/users').get(requireAuth,function(req, res, next){
 logger.log('Get all todos', 'verbose');
 
 var query = todo.find()
@@ -143,4 +143,5 @@ var storage = multer.diskStorage({
             }
         });
     });
+ 
 };
