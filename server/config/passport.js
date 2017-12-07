@@ -44,7 +44,9 @@ setUserInfo = function(req){
 
   login = function(req, res, next) {
     var userInfo = setUserInfo(req.user);
-    res.status(200).json({ token: generateToken(userInfo), user: req.user  });
+    res.status(200).json({ 
+      token: generateToken(userInfo), 
+      user: req.user  });
   };
 
 passport.use(localLogin);

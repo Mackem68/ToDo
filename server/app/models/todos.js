@@ -1,8 +1,6 @@
 var Mongoose = require ('mongoose');
 var Schema = Mongoose.Schema;
 
-priorities = ['Low', 'Medium', 'High', 'Critical'];
-
 var TodoSchema = new Schema({
     user:{type: Schema.Types.ObjectId, required: true},
     todo: { type: String, required: true},
@@ -10,7 +8,7 @@ var TodoSchema = new Schema({
     dateCreated: {type: Date, default: Date.now},
     dateDue: {type: Date, default: Date.now},
     completed: { type: Boolean, default: false},
-    priority: {type: String, enum: priorities},
+    priority: {type: String,  required: ['Low', 'Medium', 'High', 'Critical']},
     file: {fileName: String, originalNames:String}
 
 });
