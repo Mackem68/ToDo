@@ -49,7 +49,7 @@ router.route('/users/userId').get(requireAuth,function(req, res, next){
                 });
         }); 
     
-router.route('/users').post(function(req, res, next){
+router.route('/users').post(requireAuth,function(req, res, next){
     logger.log('Create user', 'verbose');
 console.log(req.body)   
     var user = new User(req.body);
@@ -113,4 +113,15 @@ User.findById(req.params.userId)
         return next(err);
     });
 });
-}
+
+
+ router.post('/login', function(req, res, next){
+      logger.log(req.body);
+     var email = req.body.email
+     var password = req.body.password;
+
+    var obj = {'email' : email, 'password' : password};
+   res.status(201).json(obj);
+  });
+
+};

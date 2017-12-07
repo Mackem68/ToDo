@@ -28,7 +28,7 @@ Todo.find({user: req.params.userId})
             });
 });
 
-router.route('/users').get(requireAuth,function(req, res, next){
+router.route('/todos').get(requireAuth,function(req, res, next){
 logger.log('Get all todos', 'verbose');
 
 var query = todo.find()
@@ -116,7 +116,7 @@ var storage = multer.diskStorage({
         cb(null, fileName[0] + new Date().getTime() + "." + fileName[fileName.length - 1]);
     }
   });
-// this 
+
   var upload = multer({ storage: storage });
     
   router.post('/todos/upload/:userId/:todoId', upload.any(), function(req, res, next){
@@ -128,7 +128,7 @@ var storage = multer.diskStorage({
             } else {     
                 if(req.files){
                     todo.file = {
-                        filename : req.files[0].filename,
+                        fileName : req.files[0].filename,
                         originalName : req.files[0].originalname,
                         dateUploaded : new Date()
                     };
@@ -143,5 +143,4 @@ var storage = multer.diskStorage({
             }
         });
     });
- 
 };

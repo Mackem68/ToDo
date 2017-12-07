@@ -4,34 +4,36 @@ import {HttpClient, json} from 'aurelia-fetch-client';
 @inject(HttpClient)
 export class DataServices {
 
-	constructor(http) {
-        this.httpClient = http;
-        
-        this.BASE_URL = "http://localhost:5000/api/";
-        this.httpClient.configure(config => {
-            config
-                .withBaseUrl(this.BASE_URL)
-                .withDefaults({
-                credentials: 'same-origin',
-                headers: {
-                    'Accept': 'application/json',
-                    'X-Requested-With': 'Fetch'
-                }
-                })
-                .withInterceptor({
-                request(request) {
-                    console.log(`Requesting ${request.method} ${request.url}`);
-                    return request;
-                },
-                response(response) {
-                    console.log(`Received ${response.status} ${response.url}`);
-                    return response;
-                }
-                });
-            });
-    
-	}
-	get(url) {
+    constructor(http) {
+		this.httpClient = http;
+		this.BASE_URL = "http://localhost:5000/api/";
+
+		this.httpClient.configure(config => {
+		config
+			.withBaseUrl(this.BASE_URL)
+			.withDefaults({
+			credentials: 'same-origin',
+			headers: {
+				'Accept': 'application/json',
+				'X-Requested-With': 'Fetch'
+			}
+			})
+			.withInterceptor({
+			request(request) {
+				var authHeader = 'Bearer ' + localStorage.getItem('aurelia_token')
+				request.headers.append('Authorization', authHeader);			
+				console.log(`Requesting ${request.method} ${request.url}`);
+				return request;
+			},
+			response(response) {
+				console.log(`Received ${response.status} ${response.url}`);
+				return response;
+			}
+			});
+        });
+    }
+
+    get(url) {
 		return this.httpClient.fetch(url)
 			.then(response => response.json())
 			.then(data => {
@@ -40,8 +42,11 @@ export class DataServices {
 			.catch(error => {
 				return error;
 			});
-	}
-	post(content, url) {
+    }
+
+    post(content, url) {
+        console.log(content)
+        console.log(url)
 		return this.httpClient
 			.fetch(url, {
 				method: 'post',
@@ -55,6 +60,7 @@ export class DataServices {
 				return error;
 			});
     }
+
     put(content, url) {
 		return this.httpClient
 			.fetch(url, {
@@ -69,7 +75,8 @@ export class DataServices {
 				return error;
 			});
 	}
-	delete(url) {
+
+    delete(url) {
 		return this.httpClient
 			.fetch(url, {
 				method: 'delete'
@@ -83,4 +90,19 @@ export class DataServices {
 			});
 	}
 
+	uploadFiles(files, url){
+		    return this.httpClient
+		    .fetch(url, {
+		        method: 'post',
+		        body: files
+		    })
+		    .then(response => response.json())
+		    .then(object => {
+		        return object;
+		    })
+		    .catch(error => {
+		        return error;
+		    });
+		}
+		
 }
