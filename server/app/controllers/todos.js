@@ -116,7 +116,7 @@ var storage = multer.diskStorage({
         cb(null, fileName[0] + new Date().getTime() + "." + fileName[fileName.length - 1]);
     }
   });
-
+// this 
   var upload = multer({ storage: storage });
     
   router.post('/todos/upload/:userId/:todoId', upload.any(), function(req, res, next){
