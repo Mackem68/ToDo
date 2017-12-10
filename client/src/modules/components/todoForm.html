@@ -3,7 +3,8 @@
 		<div class="card-body">
 			<span><i click.trigger="back()" class="fa fa-arrow-left fa-lg" aria-hidden="true"></i></span>
 		</div>
-	</div>	
+        </div>	
+     
 	<form>
 		<div class="form-group topMargin">
 			  <label for="todoInput">Todo *</label>
@@ -11,7 +12,7 @@
 				placeholder="Enter ToDo">
 			  <small id="todoHelp" class="form-text text-muted">
 				A short name for the ToDo.</small>
-		</div>
+                </div>
         <div class="form-group">
             <label for="descriptionInput">Description</label>
             <textarea value.bind="todoObj.description" type="text" class="form-control" 
@@ -20,6 +21,7 @@
             <small id="descriptionHelp" class="form-text text-muted">
 			A longer description if required.</small>
         </div>
+
 <div class="form-group">
                 <label for="priorityInput">Priority</label>
                 <select value.bind="todoObj.priority" class="form-control" 
@@ -28,13 +30,15 @@
             ${priority}</option>
                 </select>
                 <small id="priorityHelp" class="form-text text-muted">How urgent is this?</small>
-            </div>      
+            </div>    
+
             <div class="form-group">
                 <label for="dueDateInput">Due Date *</label>
-                <flat-picker value.binds="todoObj.dateDue"></flat-picker>
+                <flat-picker value.bind="todoObj.dateDue"></flat-picker>
                 <small id="dueDateHelp" class="form-text text-muted">
             The date to ToDo is due.</small>
             </div>  
+
     <div class="row">
                 <div class="col">
                         <label class="btn btn-secondary">
@@ -56,5 +60,6 @@
         </div>
             <button click.trigger="saveTodo()" class="btn btn-primary topMargin">Save</button>
         </form>
+
     </template>
     

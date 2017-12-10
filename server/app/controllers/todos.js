@@ -17,7 +17,7 @@ app.use('/api', router);
 router.get('/todos/user/:userId', function (req, res, next) {
     logger.log('Get all todos for ' + req.params.userId, 'verbose');
 
-    Todo.find({ userid: req.params.userId })
+    Todo.find({ user: req.params.userId })
         .then(todos => {
             if (todos) {
                 res.status(200).json(todos);
@@ -74,13 +74,13 @@ router.route('/todos').post(requireAuth, function (req, res, next) {
         });
 })
 
-router.route('/todos/todo').put(requireAuth, function (req, res, next) {
+router.route('/todos/:todo').put(requireAuth, function (req, res, next) {
     logger.log('Update todo', 'verbose');
 
     Todo.findOneAndUpdate({ _id: req.params.todo },
         req.body, { new: true, multi: false })
         .then(Todo => {
-            res.status(200).json(todo);
+            res.status(200).json(Todo);
         })
         .catch(error => {
             return next(error);
@@ -110,7 +110,7 @@ var storage = multer.diskStorage({
             }
         });
     },
-    fileName: function (req, file, cb) {
+    filename: function (req, file, cb) {
         let fileName = file.originalname.split('.');
         cb(null, fileName[0] + new Date().getTime() + "." + fileName[fileName.length - 1]);
     }
@@ -128,7 +128,7 @@ router.post('/todos/upload/:userId/:todoId', upload.any(), function (req, res, n
             if (req.files) {
                 todo.file = {
                     fileName: req.files[0].filename,
-                    originalName: req.files[0].originalname,
+                    originalNames: req.files[0].originalname,
                     dateUploaded: new Date()
                 };
             }

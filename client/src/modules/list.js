@@ -27,7 +27,7 @@ export class List {
 			todo: "",
 			description: "",
 			dateDue: new Date(),
-			userid: this.user._id,
+			user: this.user._id,
 			priority: this.priorities[0]
 		}
 		this.showList = false;		
