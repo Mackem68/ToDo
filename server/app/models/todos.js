@@ -13,6 +13,5 @@ var TodoSchema = new Schema({
 
 });
 
-module.exports=
-    Mongoose.model('Todo', TodoSchema);
+module.exports= Mongoose.model('Todo', TodoSchema);
 

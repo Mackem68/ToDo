@@ -1,7 +1,11 @@
 .rightMargin {
-    e: 10px;
+    margin-right: 10px;
+    }
+
+.leftMargin {
+        margin-left: 10px;
     }
 
 .topMargin {
-        margin0top:10px;
+        margin-top: 10px;
     }
